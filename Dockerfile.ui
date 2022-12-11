@@ -6,11 +6,11 @@ WORKDIR /app/packages/ui
 RUN apk add --no-cache libc6-compat
 # Install dependencies
 COPY packages/ui/package.json packages/ui/yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 WORKDIR /app/packages/common
 # Install dependencies
 COPY packages/common/package.json packages/common/yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Install UI dependencies
 FROM node:16-alpine AS ui-builder

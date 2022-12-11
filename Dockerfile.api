@@ -6,11 +6,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app/packages/api
 # Install dependencies
 COPY packages/api/package.json packages/api/yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 WORKDIR /app/packages/common
 # Install dependencies
 COPY packages/common/package.json packages/common/yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Build API
 FROM node:16-alpine AS api-builder
