@@ -1,6 +1,6 @@
 # Based off of https://nextjs.org/docs/deployment#docker-image
 # Install dependencies for all subprojects
-FROM node:alpine AS base
+FROM node:16-alpine AS base
 WORKDIR /app/packages/ui
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
@@ -13,7 +13,7 @@ COPY packages/common/package.json packages/common/yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Install UI dependencies
-FROM node:alpine AS ui-builder
+FROM node:16-alpine AS ui-builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app/packages/ui
 # Copy from common and ui and build ui project
@@ -30,7 +30,7 @@ RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 
 # Production image, copy all the files and run next
-FROM node:alpine AS runner
+FROM node:16-alpine AS runner
 WORKDIR /app/packages/ui
 ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs

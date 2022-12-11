@@ -1,5 +1,5 @@
 # Install dependencies for all subprojects
-FROM node:alpine AS base
+FROM node:16-alpine AS base
 WORKDIR /app
 # Install 'libc6-compat'
 RUN apk add --no-cache libc6-compat
@@ -13,7 +13,7 @@ COPY packages/common/package.json packages/common/yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Build API
-FROM node:alpine AS api-builder
+FROM node:16-alpine AS api-builder
 WORKDIR /app/packages/api
 COPY /packages/api /app/packages/api
 COPY /packages/common /app/packages/common
@@ -22,7 +22,7 @@ COPY --from=base /app/packages/common/node_modules /app/packages/common/node_mod
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
-FROM node:alpine AS runner
+FROM node:16-alpine AS runner
 WORKDIR /app/packages/api
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nodeuser -u 1001

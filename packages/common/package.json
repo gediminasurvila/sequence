@@ -12,7 +12,7 @@
   "dependencies": {
     "invariant": "^2.2.4",
     "sequence-graph-data-structure": "^2.0.6",
-    "typescript": "^4.3.2",
+    "typescript": "^4.3.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

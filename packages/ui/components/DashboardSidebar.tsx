@@ -11,7 +11,7 @@ export interface SidebarItemProp {
 
 interface Props {
   index: number;
-  onClick: ({ index: number, route: string }) => void;
+  onClick: ({ index, route }) => void;
 }
 
 const DashboardSidebar = (props: Props) => (
